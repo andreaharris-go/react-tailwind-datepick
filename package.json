@@ -1,6 +1,6 @@
 {
   "name": "react-tailwind-datepick",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "React datepicker with tailwind",
   "author": "Duckdev84 <duckdev84@gmail.com>",
   "license": "MIT",
@@ -13,7 +13,7 @@
   },
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
-  "unpkg": "dist/react-day-picker.min.js",
+  "unpkg": "dist/react-tw-datepick.min.js",
   "types": "dist/index.d.ts",
   "style": "dist/style.css",
   "scripts": {
@@ -33,6 +33,9 @@
   ],
   "dependencies": {
     "@reach/auto-id": "^0.16.0"
+  },
+  "resolutions": {
+    "trim": "0.0.3"
   },
   "devDependencies": {
     "@rollup/plugin-alias": "^3.1.9",
