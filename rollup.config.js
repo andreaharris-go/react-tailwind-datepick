@@ -6,7 +6,6 @@ import commonjs from '@rollup/plugin-commonjs';
 import typescript from '@rollup/plugin-typescript';
 import localResolve from 'rollup-plugin-local-resolve';
 import { terser } from 'rollup-plugin-terser';
-import copy from 'rollup-plugin-copy';
 
 import pkg from './package.json';
 
@@ -58,27 +57,7 @@ const buildConfig = {
       sourceMap: true
     }),
     localResolve(),
-    tscAliasPlugin(),
-    copy({
-      targets: [
-        {
-          src: ['./src/style.css', './src/style.css.d.ts'],
-          dest: './dist'
-        },
-        {
-          src: './src/style.css',
-          dest: './dist',
-          rename: 'style.module.css',
-          transform: (contents) => contents.toString().replace(/\.rdp-/g, '.')
-        },
-        {
-          src: './src/style.css.d.ts',
-          dest: './dist',
-          rename: 'style.module.css.d.ts',
-          transform: (contents) => contents.toString().replace(/rdp-/g, '')
-        }
-      ]
-    })
+    tscAliasPlugin()
   ]
 };
 
@@ -87,7 +66,7 @@ const browserConfig = {
   input: 'dist/index.js',
   output: [
     {
-      file: pkg.browser,
+      file: 'examples/main/src/dist/rtw.min.js',
       format: 'umd',
       name: 'RtwDatepick',
       globals
