@@ -1,6 +1,29 @@
 # react-tailwind-datepick #
 
-## Installation ##
+![screen short](docs/images/screen.png)
+
+## Installation
+```
+npm install react-tailwind-datepick
+```
+
+```javascript
+import { RtwDatepick } from "react-tailwind-datepick"
+
+function App() {
+  return (
+    <div className="App">
+      <header className="App-header">
+        <RtwDatepick />
+      </header>
+    </div>
+  );
+}
+
+export default App;
+```
+
+## Contribute Installation ##
 ```
 git clone https://github.com/andreaharris-go/react-tailwind-datepick.git
 
