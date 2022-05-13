@@ -11,10 +11,20 @@ npm install react-tailwind-datepick
 import { RtwDatepick } from "react-tailwind-datepick"
 
 function App() {
+  const [ month, monthSet ] = useState(5);
+  const [ year, ] = useState(2022);
+  const [ date, ] = useState(10);
+  
   return (
     <div className="App">
       <header className="App-header">
-        <RtwDatepick />
+        <header className="App-header">
+          <RtwDatepick
+            year={year}
+            month={month}
+            date={date}
+            onMonthChange={monthSet}
+          />
       </header>
     </div>
   );
