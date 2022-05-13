@@ -1,9 +1,10 @@
 {
   "name": "react-tailwind-datepick",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "React datepicker with tailwind",
   "author": "Duckdev84 <duckdev84@gmail.com>",
   "license": "MIT",
+  "keywords": ["react-tailwind", "react", "tailwind", "datepicker"],
   "repository": {
     "type": "git",
     "url": "https://github.com/andreaharris-go/react-tailwind-datepick"
