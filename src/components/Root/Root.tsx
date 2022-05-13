@@ -24,7 +24,7 @@ export function Root(): JSX.Element {
   }, [h1Month]);
 
   return (
-    <div className="flex items-center justify-center py-8 px-4">
+    <div className="">
       <div className="max-w-sm w-full shadow-lg">
         <div className="md:p-8 p-5 dark:bg-gray-800 bg-white rounded-t">
           <div className="px-4 flex items-center justify-between">
