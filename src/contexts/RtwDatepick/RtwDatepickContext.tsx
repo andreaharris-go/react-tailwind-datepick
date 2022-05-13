@@ -20,8 +20,8 @@ export function RtwDatepickProvider(props: RtwDatepickProviderProps): JSX.Elemen
     year: initialProps.year || 0,
     month: initialProps.month || 0,
     date: initialProps.date || 0,
-    config: initialProps.config,
     onMonthChange: initialProps.onMonthChange,
+    classNames: initialProps.classNames || { l1: 'p-1' },
   }
 
   return (

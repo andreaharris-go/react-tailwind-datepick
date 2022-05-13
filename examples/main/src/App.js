@@ -10,12 +10,17 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <RtwDatepick
-          year={year}
-          month={month}
-          date={date}
-          onMonthChange={monthSet}
-        />
+        <div className="flex">
+          <RtwDatepick
+            year={year}
+            month={month}
+            date={date}
+            onMonthChange={monthSet}
+            classNames={{
+              l1: 'absolute top-0 left-0'
+            }}
+          />
+        </div>
       </header>
     </div>
   );
