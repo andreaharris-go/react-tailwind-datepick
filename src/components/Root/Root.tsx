@@ -1,14 +1,27 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { format, startOfMonth, getDay } from 'date-fns';
-import {NumberOfDate} from "./NumberOfDate";
+import { NumberOfDate } from "./NumberOfDate";
+import { useRtwDatepick } from 'contexts/RtwDatepick';
+import { NavigationPrev } from 'components/NavigationPrev';
+import { NavigationNext } from 'components/NavigationNext';
 
 export function Root(): JSX.Element {
-  const [ h1Month, ] = useState(format(new Date(), 'MMM'));
-  const [ h1Year, ] = useState(format(new Date(), 'yyyy'));
-  const [ sIdx, ] = useState([0, 1, 2, 3, 4, 5, 6].findIndex(i => i === getDay(startOfMonth(new Date()))));
+  const updateStartIdx = function (y: number, m: number, d: number): number {
+    return [0, 1, 2, 3, 4, 5, 6].findIndex(i => i === getDay(startOfMonth(new Date(y, m, d))));
+  }
+
   const displayDateNumber = function (n: number, s: number): number {
     return (n - s);
   };
+
+  const rtwDatepick = useRtwDatepick();
+  const [ h1Month, h1MonthSet ] = useState(format(new Date(rtwDatepick.year, rtwDatepick.month, rtwDatepick.date), 'MMM'));
+  const [ h1Year, ] = useState(format(new Date(rtwDatepick.year, rtwDatepick.month, rtwDatepick.date), 'yyyy'));
+  const [ sIdx, sIdxSet ] = useState(updateStartIdx(rtwDatepick.year, rtwDatepick.month, rtwDatepick.date));
+
+  useEffect(() => {
+    sIdxSet(updateStartIdx(rtwDatepick.year, rtwDatepick.month, rtwDatepick.date));
+  }, [h1Month]);
 
   return (
     <div className="flex items-center justify-center py-8 px-4">
@@ -17,46 +30,29 @@ export function Root(): JSX.Element {
           <div className="px-4 flex items-center justify-between">
             <span className="focus:outline-none  text-base font-bold dark:text-gray-100 text-gray-800">{h1Month} {h1Year}</span>
             <div className="flex items-center">
-              <button aria-label="calendar backward" className="focus:text-gray-400 hover:text-gray-400 text-gray-800 dark:text-gray-100">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="icon"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  fill="none"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                  <polyline points="15 6 9 12 15 18"/>
-                </svg>
-              </button>
-              <button aria-label="calendar forward" className="focus:text-gray-400 hover:text-gray-400 ml-3 text-gray-800 dark:text-gray-100">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="icon icon-tabler  icon-tabler-chevron-right"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  fill="none"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                  <polyline points="9 6 15 12 9 18"/>
-                </svg>
-              </button>
+              <NavigationPrev
+                onPreviousClick={() => {
+                  h1MonthSet(format(new Date(2022, rtwDatepick.month - 1, 1), 'MMM'));
+                  rtwDatepick.onMonthChange?.(rtwDatepick.month - 1);
+                }}
+              />
+              <NavigationNext
+                onNextClick={() => {
+                  h1MonthSet(format(new Date(2022, rtwDatepick.month + 1, 1), 'MMM'));
+                  rtwDatepick.onMonthChange?.(rtwDatepick.month + 1);
+                }}
+              />
             </div>
           </div>
           <div className="flex items-center justify-between pt-12 overflow-x-auto">
             <table className="w-full">
               <thead>
               <tr>
+                <th>
+                  <div className="w-full flex justify-center">
+                    <p className="text-base font-medium text-center text-gray-800 dark:text-gray-100">Su</p>
+                  </div>
+                </th>
                 <th>
                   <div className="w-full flex justify-center">
                     <p className="text-base font-medium text-center text-gray-800 dark:text-gray-100">Mo</p>
@@ -85,11 +81,6 @@ export function Root(): JSX.Element {
                 <th>
                   <div className="w-full flex justify-center">
                     <p className="text-base font-medium text-center text-gray-800 dark:text-gray-100">Sa</p>
-                  </div>
-                </th>
-                <th>
-                  <div className="w-full flex justify-center">
-                    <p className="text-base font-medium text-center text-gray-800 dark:text-gray-100">Su</p>
                   </div>
                 </th>
               </tr>
