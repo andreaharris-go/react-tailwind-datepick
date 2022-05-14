@@ -22,8 +22,44 @@ export function Root(): JSX.Element {
     return (n - s);
   };
 
-  const [ h1Month, h1MonthSet ] = useState(format(new Date(rtwDatepick.year, rtwDatepick.month, rtwDatepick.date), 'MMM'));
-  const [ h1Year, ] = useState(format(new Date(rtwDatepick.year, rtwDatepick.month, rtwDatepick.date), 'yyyy'));
+  const displayYear = function (n: number): number {
+    return rtwDatepick.locale === 'th' ? n + 543 : n;
+  }
+
+  const displayMonth = function (n: number): string {
+    if (rtwDatepick.locale === 'th') {
+      switch (n) {
+        case 1:
+          return 'มกราคม';
+        case 2:
+          return 'กุมภาพันธ์';
+        case 3:
+          return 'มีนาคม';
+        case 4:
+          return 'เมษายน';
+        case 5:
+          return 'พฤษภาคม';
+        case 6:
+          return 'มิถุนายน';
+        case 7:
+          return 'กรกฎาคม';
+        case 8:
+          return 'สิงหาคม';
+        case 9:
+          return 'กันยายน';
+        case 10:
+          return 'ตุลาคม';
+        case 11:
+          return 'พฤศจิกายน';
+        case 12:
+          return 'ธันวาคม';
+      }
+    }
+
+    return format(new Date(rtwDatepick.year, rtwDatepick.month, rtwDatepick.date), 'MMM')
+  }
+
+  const [ h1Month, h1MonthSet ] = useState('');
   const [ sIdx, sIdxSet ] = useState(updateStartIdx(rtwDatepick.year, rtwDatepick.month, rtwDatepick.date));
 
   useEffect(() => {
@@ -42,74 +78,76 @@ export function Root(): JSX.Element {
   }, [dateSelected]);
 
   return (
-    <div className="relative">
+    <div className="relative w-full">
       <div
-        className="flex cursor-pointer"
+        className="flex cursor-pointer w-full"
         onClick={() => {
           if (!isComponentVisible) {
             isComponentVisibleSet(true)
           }
         }}
       >
-        <IconCalendar />
+        {
+          rtwDatepick.iconHide ? <div className="w-full h-10" /> : <IconCalendar />
+        }
       </div>
       <div ref={ref} className={`${rtwDatepick.classNames.l1} transition ease-in-out duration-500 ${isComponentVisible ? 'block' : 'hidden'}`}>
         <div className="max-w-sm w-full shadow-lg">
           <div className="p-5 dark:bg-gray-800 bg-white rounded-t">
             <div className="px-4 flex items-center justify-between">
-              <span className="focus:outline-none  text-base font-bold dark:text-gray-100 text-gray-800">{h1Month} {h1Year}</span>
+              <span className="focus:outline-none  text-base font-bold dark:text-gray-100 text-gray-800">{displayMonth(rtwDatepick.month)} {displayYear(rtwDatepick.year)}</span>
               <div className="flex items-center">
                 <NavigationPrev
                   onPreviousClick={() => {
-                    h1MonthSet(format(new Date(2022, rtwDatepick.month - 1, 1), 'MMM'));
+                    h1MonthSet(format(new Date(rtwDatepick.year, rtwDatepick.month - 1, 1), 'MMM'));
                     rtwDatepick.onMonthChange?.(rtwDatepick.month - 1);
                   }}
                 />
                 <NavigationNext
                   onNextClick={() => {
-                    h1MonthSet(format(new Date(2022, rtwDatepick.month + 1, 1), 'MMM'));
+                    h1MonthSet(format(new Date(rtwDatepick.year, rtwDatepick.month + 1, 1), 'MMM'));
                     rtwDatepick.onMonthChange?.(rtwDatepick.month + 1);
                   }}
                 />
               </div>
             </div>
-            <div className="flex items-center justify-between pt-12 overflow-x-auto">
+            <div className="flex items-center justify-between pt-6 overflow-x-auto">
               <table className="w-full">
                 <thead>
                 <tr>
                   <th>
                     <div className="w-full flex justify-center">
-                      <p className="text-base font-medium text-center text-gray-800 dark:text-gray-100">Su</p>
+                      <p className="text-base font-medium text-center text-gray-800 dark:text-gray-100">{rtwDatepick.locale === 'th' ? 'อา' : 'Su'}</p>
                     </div>
                   </th>
                   <th>
                     <div className="w-full flex justify-center">
-                      <p className="text-base font-medium text-center text-gray-800 dark:text-gray-100">Mo</p>
+                      <p className="text-base font-medium text-center text-gray-800 dark:text-gray-100">{rtwDatepick.locale === 'th' ? 'จ' : 'Mo'}</p>
                     </div>
                   </th>
                   <th>
                     <div className="w-full flex justify-center">
-                      <p className="text-base font-medium text-center text-gray-800 dark:text-gray-100">Tu</p>
+                      <p className="text-base font-medium text-center text-gray-800 dark:text-gray-100">{rtwDatepick.locale === 'th' ? 'อ' : 'Tu'}</p>
                     </div>
                   </th>
                   <th>
                     <div className="w-full flex justify-center">
-                      <p className="text-base font-medium text-center text-gray-800 dark:text-gray-100">We</p>
+                      <p className="text-base font-medium text-center text-gray-800 dark:text-gray-100">{rtwDatepick.locale === 'th' ? 'พ' : 'We'}</p>
                     </div>
                   </th>
                   <th>
                     <div className="w-full flex justify-center">
-                      <p className="text-base font-medium text-center text-gray-800 dark:text-gray-100">Th</p>
+                      <p className="text-base font-medium text-center text-gray-800 dark:text-gray-100">{rtwDatepick.locale === 'th' ? 'พฤ' : 'Th'}</p>
                     </div>
                   </th>
                   <th>
                     <div className="w-full flex justify-center">
-                      <p className="text-base font-medium text-center text-gray-800 dark:text-gray-100">Fr</p>
+                      <p className="text-base font-medium text-center text-gray-800 dark:text-gray-100">{rtwDatepick.locale === 'th' ? 'ศ' : 'Fr'}</p>
                     </div>
                   </th>
                   <th>
                     <div className="w-full flex justify-center">
-                      <p className="text-base font-medium text-center text-gray-800 dark:text-gray-100">Sa</p>
+                      <p className="text-base font-medium text-center text-gray-800 dark:text-gray-100">{rtwDatepick.locale === 'th' ? 'ส' : 'Sa'}</p>
                     </div>
                   </th>
                 </tr>
