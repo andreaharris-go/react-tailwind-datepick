@@ -6,20 +6,25 @@ function App() {
   const [ month, monthSet ] = useState(5);
   const [ year, ] = useState(2022);
   const [ date, ] = useState(10);
+  const [ dateSelected, dateSelectedSet ] = useState('');
 
   return (
     <div className="App">
-      <header className="App-header">
-        <div className="flex">
-          <RtwDatepick
-            year={year}
-            month={month}
-            date={date}
-            onMonthChange={monthSet}
-            classNames={{
-              l1: 'absolute top-0 left-0'
-            }}
-          />
+      <header className="App-header flex justify-center items-center">
+        <div className="mt-20 text-center">
+          <h1 className="text-2xl mb-6">Result: {dateSelected}</h1>
+          <div className="flex">
+            <RtwDatepick
+              onDateSelected={dateSelectedSet}
+              year={year}
+              month={month}
+              date={date}
+              onMonthChange={monthSet}
+              classNames={{
+                l1: 'absolute top-0 left-0'
+              }}
+            />
+          </div>
         </div>
       </header>
     </div>

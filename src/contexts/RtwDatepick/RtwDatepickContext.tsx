@@ -21,6 +21,7 @@ export function RtwDatepickProvider(props: RtwDatepickProviderProps): JSX.Elemen
     month: initialProps.month || 0,
     date: initialProps.date || 0,
     onMonthChange: initialProps.onMonthChange,
+    onDateSelected: initialProps.onDateSelected,
     classNames: initialProps.classNames || { l1: 'p-1' },
   }
 
