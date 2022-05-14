@@ -13,6 +13,7 @@ export interface RtwDatepickBase {
   month: number;
   date: number;
   iconHide: boolean;
+  locale: string;
   classNames: ModifierClassName;
   onMonthChange?: MonthChangeEventHandler;
   onDateSelected?: DateSelectedEventHandler;
