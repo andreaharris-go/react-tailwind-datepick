@@ -20,6 +20,7 @@ function App() {
               month={month}
               date={date}
               onMonthChange={monthSet}
+              iconHide={false}
               classNames={{
                 l1: 'absolute top-0 left-0'
               }}

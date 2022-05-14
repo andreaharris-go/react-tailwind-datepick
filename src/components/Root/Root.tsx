@@ -42,16 +42,18 @@ export function Root(): JSX.Element {
   }, [dateSelected]);
 
   return (
-    <div className="relative">
+    <div className="relative w-full">
       <div
-        className="flex cursor-pointer"
+        className="flex cursor-pointer w-full"
         onClick={() => {
           if (!isComponentVisible) {
             isComponentVisibleSet(true)
           }
         }}
       >
-        <IconCalendar />
+        {
+          rtwDatepick.iconHide ? <div className="w-full h-10" /> : <IconCalendar />
+        }
       </div>
       <div ref={ref} className={`${rtwDatepick.classNames.l1} transition ease-in-out duration-500 ${isComponentVisible ? 'block' : 'hidden'}`}>
         <div className="max-w-sm w-full shadow-lg">
