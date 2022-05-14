@@ -1,4 +1,5 @@
 import {
+  DateSelectedEventHandler,
   MonthChangeEventHandler
 } from "./EventHandlers";
 
@@ -11,6 +12,7 @@ export interface RtwDatepickBase {
   year: number;
   month: number;
   date: number;
-  onMonthChange?: MonthChangeEventHandler;
   classNames: ModifierClassName;
+  onMonthChange?: MonthChangeEventHandler;
+  onDateSelected?: DateSelectedEventHandler;
 }

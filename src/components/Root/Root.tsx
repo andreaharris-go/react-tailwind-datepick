@@ -5,6 +5,7 @@ import { useRtwDatepick } from 'contexts/RtwDatepick';
 import { NavigationPrev } from 'components/NavigationPrev';
 import { NavigationNext } from 'components/NavigationNext';
 import {useEventClickOutside} from "hooks/useEventClickOutside/useEventClickOutside";
+import {IconCalendar} from "../../assets/svg/IconCalendar";
 
 export function Root(): JSX.Element {
   const rtwDatepick = useRtwDatepick();
@@ -29,18 +30,32 @@ export function Root(): JSX.Element {
     sIdxSet(updateStartIdx(rtwDatepick.year, rtwDatepick.month, rtwDatepick.date));
   }, [h1Month]);
 
+  const [ dateSelected, dateSelectedSet ] = useState(0);
+  const [ exactlyDateSelected, exactlyDateSelectedSet ] = useState('');
+  useEffect(() => {
+    if (dateSelected) {
+      rtwDatepick.date = dateSelected;
+      exactlyDateSelectedSet(`${rtwDatepick.year}${rtwDatepick.month}${rtwDatepick.date}`);
+      rtwDatepick.onDateSelected?.(`${rtwDatepick.date}-${rtwDatepick.month}-${rtwDatepick.year}`);
+      isComponentVisibleSet(false);
+    }
+  }, [dateSelected]);
+
   return (
-    <>
-      <button
+    <div className="relative">
+      <div
+        className="flex cursor-pointer"
         onClick={() => {
-          isComponentVisibleSet(true);
+          if (!isComponentVisible) {
+            isComponentVisibleSet(true)
+          }
         }}
       >
-        Show
-      </button>
+        <IconCalendar />
+      </div>
       <div ref={ref} className={`${rtwDatepick.classNames.l1} transition ease-in-out duration-500 ${isComponentVisible ? 'block' : 'hidden'}`}>
         <div className="max-w-sm w-full shadow-lg">
-          <div className="md:p-8 p-5 dark:bg-gray-800 bg-white rounded-t">
+          <div className="p-5 dark:bg-gray-800 bg-white rounded-t">
             <div className="px-4 flex items-center justify-between">
               <span className="focus:outline-none  text-base font-bold dark:text-gray-100 text-gray-800">{h1Month} {h1Year}</span>
               <div className="flex items-center">
@@ -101,119 +116,112 @@ export function Root(): JSX.Element {
                 </thead>
                 <tbody>
                 <tr>
-                  <td className="pt-6">
-                    <NumberOfDate dateNum={displayDateNumber(1, sIdx)} />
-                  </td>
-                  <td className="pt-6">
-                    <NumberOfDate dateNum={displayDateNumber(2, sIdx)} />
-                  </td>
-                  <td className="pt-6">
-                    <NumberOfDate dateNum={displayDateNumber(3, sIdx)} />
-                  </td>
-                  <td className="pt-6">
-                    <NumberOfDate dateNum={displayDateNumber(4, sIdx)} />
-                  </td>
-                  <td className="pt-6">
-                    <NumberOfDate dateNum={displayDateNumber(5, sIdx)} />
-                  </td>
-                  <td className="pt-6">
-                    <NumberOfDate dateNum={displayDateNumber(6, sIdx)} />
-                  </td>
-                  <td className="pt-6">
-                    <NumberOfDate dateNum={displayDateNumber(7, sIdx)} />
-                  </td>
+                  {
+                    [1, 2, 3, 4, 5, 6, 7].map(i => {
+                      return (
+                        <td className="pt-6" key={`r1_${rtwDatepick.year}${rtwDatepick.month}${i}`}>
+                          <NumberOfDate
+                            yearNum={rtwDatepick.year}
+                            monthNum={rtwDatepick.month}
+                            dateNum={displayDateNumber(i, sIdx)}
+                            onDateClick={dateSelectedSet}
+                            dateSelectedNum={dateSelected}
+                            exactlyDateSelected={exactlyDateSelected}
+                          />
+                        </td>
+                      )
+                    })
+                  }
                 </tr>
                 <tr>
-                  <td>
-                    <NumberOfDate dateNum={displayDateNumber(8, sIdx)} />
-                  </td>
-                  <td>
-                    <NumberOfDate dateNum={displayDateNumber(9, sIdx)} />
-                  </td>
-                  <td>
-                    <NumberOfDate dateNum={displayDateNumber(10, sIdx)} />
-                  </td>
-                  <td>
-                    <NumberOfDate dateNum={displayDateNumber(11, sIdx)} />
-                  </td>
-                  <td>
-                    <NumberOfDate dateNum={displayDateNumber(12, sIdx)} />
-                  </td>
-                  <td>
-                    <NumberOfDate dateNum={displayDateNumber(13, sIdx)} />
-                  </td>
-                  <td>
-                    <NumberOfDate dateNum={displayDateNumber(14, sIdx)} />
-                  </td>
+                  {
+                    [8, 9, 10, 11, 12, 13, 14].map(i => {
+                      return (
+                        <td className="pt-6" key={`r1_${rtwDatepick.year}${rtwDatepick.month}${i}`}>
+                          <NumberOfDate
+                            yearNum={rtwDatepick.year}
+                            monthNum={rtwDatepick.month}
+                            dateNum={displayDateNumber(i, sIdx)}
+                            onDateClick={dateSelectedSet}
+                            dateSelectedNum={dateSelected}
+                            exactlyDateSelected={exactlyDateSelected}
+                          />
+                        </td>
+                      )
+                    })
+                  }
                 </tr>
                 <tr>
-                  <td>
-                    <NumberOfDate dateNum={displayDateNumber(15, sIdx)} />
-                  </td>
-                  <td>
-                    <NumberOfDate dateNum={displayDateNumber(16, sIdx)} />
-                  </td>
-                  <td>
-                    <NumberOfDate dateNum={displayDateNumber(17, sIdx)} />
-                  </td>
-                  <td>
-                    <NumberOfDate dateNum={displayDateNumber(18, sIdx)} />
-                  </td>
-                  <td>
-                    <NumberOfDate dateNum={displayDateNumber(19, sIdx)} />
-                  </td>
-                  <td>
-                    <NumberOfDate dateNum={displayDateNumber(20, sIdx)} />
-                  </td>
-                  <td>
-                    <NumberOfDate dateNum={displayDateNumber(21, sIdx)} />
-                  </td>
+                  {
+                    [15, 16, 17, 18, 19, 20, 21].map(i => {
+                      return (
+                        <td className="pt-6" key={`r1_${rtwDatepick.year}${rtwDatepick.month}${i}`}>
+                          <NumberOfDate
+                            yearNum={rtwDatepick.year}
+                            monthNum={rtwDatepick.month}
+                            dateNum={displayDateNumber(i, sIdx)}
+                            onDateClick={dateSelectedSet}
+                            dateSelectedNum={dateSelected}
+                            exactlyDateSelected={exactlyDateSelected}
+                          />
+                        </td>
+                      )
+                    })
+                  }
                 </tr>
                 <tr>
-                  <td>
-                    <NumberOfDate dateNum={displayDateNumber(22, sIdx)} />
-                  </td>
-                  <td>
-                    <NumberOfDate dateNum={displayDateNumber(23, sIdx)} />
-                  </td>
-                  <td>
-                    <NumberOfDate dateNum={displayDateNumber(24, sIdx)} />
-                  </td>
-                  <td>
-                    <NumberOfDate dateNum={displayDateNumber(25, sIdx)} />
-                  </td>
-                  <td>
-                    <NumberOfDate dateNum={displayDateNumber(26, sIdx)} />
-                  </td>
-                  <td>
-                    <NumberOfDate dateNum={displayDateNumber(27, sIdx)} />
-                  </td>
-                  <td>
-                    <NumberOfDate dateNum={displayDateNumber(28, sIdx)} />
-                  </td>
+                  {
+                    [22, 23, 24, 25, 26, 27, 28].map(i => {
+                      return (
+                        <td className="pt-6" key={`r1_${rtwDatepick.year}${rtwDatepick.month}${i}`}>
+                          <NumberOfDate
+                            yearNum={rtwDatepick.year}
+                            monthNum={rtwDatepick.month}
+                            dateNum={displayDateNumber(i, sIdx)}
+                            onDateClick={dateSelectedSet}
+                            dateSelectedNum={dateSelected}
+                            exactlyDateSelected={exactlyDateSelected}
+                          />
+                        </td>
+                      )
+                    })
+                  }
                 </tr>
                 <tr>
-                  <td>
-                    <NumberOfDate dateNum={displayDateNumber(29, sIdx)} />
-                  </td>
-                  <td>
-                    <NumberOfDate dateNum={displayDateNumber(30, sIdx)} />
-                  </td>
-                  <td>
-                    <NumberOfDate dateNum={displayDateNumber(31, sIdx)} />
-                  </td>
-                  <td>
-                    <NumberOfDate dateNum={displayDateNumber(32, sIdx)} />
-                  </td>
-                  <td>
-                    <NumberOfDate dateNum={displayDateNumber(33, sIdx)} />
-                  </td>
-                  <td>
-                    <NumberOfDate dateNum={displayDateNumber(34, sIdx)} />
-                  </td>
-                  <td>
-                    <NumberOfDate dateNum={displayDateNumber(35, sIdx)} />
-                  </td>
+                  {
+                    [29, 30, 31, 32, 33, 34, 35].map(i => {
+                      return (
+                        <td className="pt-6" key={`r1_${rtwDatepick.year}${rtwDatepick.month}${i}`}>
+                          <NumberOfDate
+                            yearNum={rtwDatepick.year}
+                            monthNum={rtwDatepick.month}
+                            dateNum={displayDateNumber(i, sIdx)}
+                            onDateClick={dateSelectedSet}
+                            dateSelectedNum={dateSelected}
+                            exactlyDateSelected={exactlyDateSelected}
+                          />
+                        </td>
+                      )
+                    })
+                  }
+                </tr>
+                <tr>
+                  {
+                    [36, 37, 38, 39, 40, 41, 42].map(i => {
+                      return (
+                        <td className="pt-6" key={`r1_${rtwDatepick.year}${rtwDatepick.month}${i}`}>
+                          <NumberOfDate
+                            yearNum={rtwDatepick.year}
+                            monthNum={rtwDatepick.month}
+                            dateNum={displayDateNumber(i, sIdx)}
+                            onDateClick={dateSelectedSet}
+                            dateSelectedNum={dateSelected}
+                            exactlyDateSelected={exactlyDateSelected}
+                          />
+                        </td>
+                      )
+                    })
+                  }
                 </tr>
                 </tbody>
               </table>
@@ -221,6 +229,6 @@ export function Root(): JSX.Element {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
