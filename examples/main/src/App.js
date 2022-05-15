@@ -4,8 +4,8 @@ import {useState} from "react";
 
 function App() {
   const [ month, monthSet ] = useState(5);
-  const [ year, ] = useState(2022);
-  const [ date, ] = useState(10);
+  const [ year, yearSet ] = useState(2022);
+  const [ date, dateSet ] = useState(10);
   const [ dateSelected, dateSelectedSet ] = useState('');
 
   return (
@@ -20,6 +20,8 @@ function App() {
               month={month}
               date={date}
               onMonthChange={monthSet}
+              onYearChange={yearSet}
+              onDateChange={dateSet}
               iconHide={false}
               locale="th"
               classNames={{
