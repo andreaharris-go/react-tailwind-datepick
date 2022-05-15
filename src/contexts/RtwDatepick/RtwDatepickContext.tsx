@@ -23,7 +23,9 @@ export function RtwDatepickProvider(props: RtwDatepickProviderProps): JSX.Elemen
     iconHide: initialProps.iconHide || false,
     locale: initialProps.locale || 'en',
     onMonthChange: initialProps.onMonthChange,
+    onYearChange: initialProps.onYearChange,
     onDateSelected: initialProps.onDateSelected,
+    onDateChange: initialProps.onDateChange,
     classNames: initialProps.classNames || { l1: 'p-1' },
   }
 

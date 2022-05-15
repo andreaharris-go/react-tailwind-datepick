@@ -14,8 +14,13 @@ export function Root(): JSX.Element {
     isComponentVisible,
     isComponentVisibleSet
   } = useEventClickOutside(false);
+
+  const monthManipulate = function (m: number) {
+    return m - 1;
+  }
+
   const updateStartIdx = function (y: number, m: number, d: number): number {
-    return [0, 1, 2, 3, 4, 5, 6].findIndex(i => i === getDay(startOfMonth(new Date(y, m, d))));
+    return [0, 1, 2, 3, 4, 5, 6].findIndex(i => i === getDay(startOfMonth(new Date(y, monthManipulate(m), d))));
   }
 
   const displayDateNumber = function (n: number, s: number): number {
@@ -99,13 +104,25 @@ export function Root(): JSX.Element {
               <div className="flex items-center">
                 <NavigationPrev
                   onPreviousClick={() => {
-                    h1MonthSet(format(new Date(rtwDatepick.year, rtwDatepick.month - 1, 1), 'MMM'));
+                    if (rtwDatepick.month === 1) {
+                      rtwDatepick.month = 13;
+                      rtwDatepick.year = rtwDatepick.year - 1;
+                      rtwDatepick.onYearChange?.(rtwDatepick.year);
+                    }
+
+                    h1MonthSet(format(new Date(rtwDatepick.year, monthManipulate(rtwDatepick.month) - 1, 1), 'MMM'));
                     rtwDatepick.onMonthChange?.(rtwDatepick.month - 1);
                   }}
                 />
                 <NavigationNext
                   onNextClick={() => {
-                    h1MonthSet(format(new Date(rtwDatepick.year, rtwDatepick.month + 1, 1), 'MMM'));
+                    if (rtwDatepick.month === 12) {
+                      rtwDatepick.month = 0;
+                      rtwDatepick.year = rtwDatepick.year + 1;
+                      rtwDatepick.onYearChange?.(rtwDatepick.year);
+                    }
+
+                    h1MonthSet(format(new Date(rtwDatepick.year, monthManipulate(rtwDatepick.month) + 1, 1), 'MMM'));
                     rtwDatepick.onMonthChange?.(rtwDatepick.month + 1);
                   }}
                 />
