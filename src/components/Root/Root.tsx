@@ -71,7 +71,7 @@ export function Root(): JSX.Element {
     sIdxSet(updateStartIdx(rtwDatepick.year, rtwDatepick.month, rtwDatepick.date));
   }, [h1Month]);
 
-  const [ dateSelected, dateSelectedSet ] = useState(0);
+  const [ dateSelected, dateSelectedSet ] = useState(rtwDatepick.date);
   const [ exactlyDateSelected, exactlyDateSelectedSet ] = useState('');
   useEffect(() => {
     if (dateSelected) {
