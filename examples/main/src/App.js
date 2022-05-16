@@ -23,6 +23,11 @@ function App() {
               onYearChange={yearSet}
               onDateChange={dateSet}
               iconHide={false}
+              defaultEmpty={true}
+              mainIcon={{
+                fillColor: '#303A3F',
+                className: 'w-20 h-20'
+              }}
               locale="th"
               classNames={{
                 l1: 'absolute top-0 left-0'

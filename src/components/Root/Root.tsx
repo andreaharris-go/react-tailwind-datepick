@@ -71,7 +71,7 @@ export function Root(): JSX.Element {
     sIdxSet(updateStartIdx(rtwDatepick.year, rtwDatepick.month, rtwDatepick.date));
   }, [h1Month]);
 
-  const [ dateSelected, dateSelectedSet ] = useState(rtwDatepick.date);
+  const [ dateSelected, dateSelectedSet ] = useState(rtwDatepick.defaultEmpty ? 0 : rtwDatepick.date);
   const [ exactlyDateSelected, exactlyDateSelectedSet ] = useState('');
   useEffect(() => {
     if (dateSelected) {
@@ -93,7 +93,7 @@ export function Root(): JSX.Element {
         }}
       >
         {
-          rtwDatepick.iconHide ? <div className="w-full h-10" /> : <IconCalendar />
+          rtwDatepick.iconHide ? <div className="w-full h-10" /> : <IconCalendar iconClassName={rtwDatepick.mainIcon.className} fillColor={rtwDatepick.mainIcon.fillColor} />
         }
       </div>
       <div ref={ref} className={`${rtwDatepick.classNames.l1} transition ease-in-out duration-500 ${isComponentVisible ? 'block' : 'hidden'}`}>
