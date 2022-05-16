@@ -1,7 +1,7 @@
 import React, { createContext, ReactNode } from 'react';
 
 import { RtwDatepickProps } from 'RtwDatepick';
-import { RtwDatepickBase } from "types/RtwDatepickBase";
+import {IconCalendar, RtwDatepickBase} from "types/RtwDatepickBase";
 
 export interface RtwDatepickContextValue extends RtwDatepickBase {}
 
@@ -22,6 +22,8 @@ export function RtwDatepickProvider(props: RtwDatepickProviderProps): JSX.Elemen
     date: initialProps.date || 0,
     iconHide: initialProps.iconHide || false,
     locale: initialProps.locale || 'en',
+    defaultEmpty: initialProps.defaultEmpty || false,
+    mainIcon: initialProps.mainIcon || { fillColor: '#303A3F', className: 'w-10 h-10' },
     onMonthChange: initialProps.onMonthChange,
     onYearChange: initialProps.onYearChange,
     onDateSelected: initialProps.onDateSelected,
